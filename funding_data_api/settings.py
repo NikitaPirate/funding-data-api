@@ -3,6 +3,24 @@ from typing import Any, Literal
 from pydantic import BaseModel
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+# =============================================================================
+# Shared Settings Pattern (multiple apps, common resources)
+# =============================================================================
+#
+# When multiple apps (FDA, FT, ...) share resources like database:
+#
+#   DB_HOST=localhost           # Shared by all apps
+#   FDA_CORS_ALLOW_ORIGINS=*    # App-specific
+#
+# Use AliasChoices for fallback from prefixed to unprefixed variables:
+#
+#   class DBSettings(BaseModel):
+#       host: str = Field(validation_alias=AliasChoices('FDA_DB_host', 'DB_host'))
+#       port: int = Field(validation_alias=AliasChoices('FDA_DB_port', 'DB_port'))
+#
+# This tries FDA_DB_host first, falls back to DB_host if not found.
+# =============================================================================
+
 
 class DBSettings(BaseModel):
     """Database connection settings."""
