@@ -1,0 +1,21 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Dev tools
+.ruff_cache/
+.mypy_cache/
+.pyright_cache/
+
+.plans
+.env
+CLAUDE.md
+.python-version
+opencode.json

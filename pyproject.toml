@@ -1,0 +1,64 @@
+[project]
+name = "funding-data-api"
+version = "0.1.0"
+description = "Funding data API"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "fastapi>=0.128.0",
+    "pydantic>=2.12.5",
+    "pydantic-settings>=2.12.0",
+    "uvicorn[standard]>=0.40.0",
+    # Database ORM
+    "sqlalchemy>=2.0.44",
+    "sqlmodel>=0.0.27",
+    # PostgreSQL + TimescaleDB
+    "psycopg[binary]>=3.2.12",
+    "greenlet>=3.2.4",
+    # TimescaleDB dialect
+    "sqlalchemy-timescaledb @ git+https://github.com/NikitaPirate/sqlalchemy-timescaledb.git",
+]
+
+[dependency-groups]
+dev = [
+    "pre-commit>=4.4.0",
+    "ruff>=0.14.4",
+    "pyright>=1.1.407",
+]
+
+[tool.ruff]
+line-length = 99
+target-version = "py314"
+
+[tool.ruff.lint]
+select = ["E", "F", "UP", "B", "SIM", "I", "ANN", "Q", "T20", "N", "TID"]
+ignore = ["ANN002", "ANN003"]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"]
+
+[tool.ruff.lint.flake8-annotations]
+allow-star-arg-any = true
+suppress-none-returning = true
+
+[tool.ruff.lint.flake8-bugbear]
+extend-immutable-calls = [
+    "Depends",
+    "fastapi.Depends",
+    "fastapi.params.Depends",
+    "Query",
+    "fastapi.Query",
+    "fastapi.params.Query",
+]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.pyright]
+include = ["funding_data_api"]
+exclude = ["**/__pycache__", ".venv"]
+typeCheckingMode = "basic"
+pythonVersion = "3.14"
+reportMissingImports = true
+reportMissingTypeStubs = false
