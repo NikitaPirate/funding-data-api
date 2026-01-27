@@ -1,3 +1,14 @@
+# =============================================================================
+# CRITICAL: UTC timezone configuration MUST be first
+# No code allowed before this section - timezone must be set before any imports
+# =============================================================================
+import os  # noqa: E402
+
+# Force UTC timezone for entire application
+os.environ["TZ"] = "UTC"  # noqa: E402
+
+# =============================================================================
+
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
